@@ -31,17 +31,17 @@ iptables -A INPUT -p tcp --dport www -j $win
 iptables -A OUTPUT -p tcp --sport www -j $wout
 
 #Permit ssh inbound/outbound packet
-iptables -A $sin -p tcp --dport ssh ACCEPT
-iptables -A $sout -p tcp --dport ssh ACCEPT
+iptables -A $sin -p tcp --dport ssh -j ACCEPT
+iptables -A $sout -p tcp --dport ssh -j ACCEPT
 
 #Permit www inbound/outbound packet
-iptables -A $win -p tcp --dport www ACCEPT
-iptables -A $wout -p tcp --dport www ACCEPT
+iptables -A $win -p tcp --dport www -j ACCEPT
+iptables -A $wout -p tcp --dport www -j ACCEPT
 
 #Deny from sport 0-1024 with dport 80
-iptables -A $sin -p tcp --dport 80 --sport 0:1024 DROP
-iptables -A $win -p tcp --dport 80 --sport 0:1024 DROP
+iptables -A $sin -p tcp --dport 80 --sport 0:1024 -j DROP
+iptables -A $win -p tcp --dport 80 --sport 0:1024 -j DROP
 
 #Deny from port 0
-iptables -A $sin -p tcp --dport 0 DROP
-iptables -A $win -p tcp --dport 0 DROP
+iptables -A $sin -p tcp --dport 0 -j DROP
+iptables -A $win -p tcp --dport 0 -j DROP
