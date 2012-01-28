@@ -58,11 +58,8 @@ iptables -A INPUT $udp $d $dchprange $s $dchprange -m state --state NEW,ESTABLIS
 iptables -A OUTPUT $udp $s $dchprange $d $dchprange -m state --state NEW,ESTABLISHED -j ACCEPT
 
 #Deny from sport 0-1024 with dport 80
-#iptables -A $sin $tcp $d 80 $s 0:1024 -j DROP
-#iptables -A $win $tcp $d 80 $s 0:1024 -j DROP
-iptables -A INPUT $tcp $d 80 $s 0:1024 -j DROP
+iptables -A INPUT $d 80 $s 0:1024 -j DROP
 
 #Deny from port 0
-#iptables -A $sin $tcp $d 0 -j DROP
-#iptables -A $win $tcp $d 0 -j DROP
-iptables -A INPUT $tcp $d 0 -j DROP
+iptables -A INPUT $d 0 -j DROP
+iptables -A INPUT $s 0 -j DROP
