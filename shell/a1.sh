@@ -36,15 +36,15 @@ iptables -A OUTPUT $tcp $s $dportrange $d $dport -m state --state NEW,ESTABLISHE
 iptables -A INPUT $tcp $s $dport $d $dportrange -m state --state ESTABLISHED -j ACCEPT
 
 #DCHP
-iptables -A INPUT $udp $d $dchprange $s $dchprange -j ACCEPT
+iptables -A INPUT $udp $s $dchprange $d $dchprange -j ACCEPT
 iptables -A OUTPUT $udp $s $dchprange $d $dchprange -j ACCEPT
 
 #Deny from sport 0-1023 with dport 80
-iptables -A INPUT $tcp $d 80 $s 0:1023 -m state --state NEW,ESTABLISHED -j DROP
+iptables -A INPUT $tcp $d 80 $s 0:1023 -j DROP
 
 #Deny from port 0
-iptables -A INPUT $tcp $d 0 -m state --state NEW,ESTABLISHED -j DROP
-iptables -A INPUT $tcp $s 0 -m state --state NEW,ESTABLISHED -j DROP
+iptables -A INPUT $tcp $d 0 -j DROP
+iptables -A INPUT $tcp $s 0 -j DROP
 
 #Redirect to user-defined chains
 iptables -A INPUT $tcp $d ssh -j $sin
